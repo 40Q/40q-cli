@@ -1,6 +1,6 @@
 import { ArgumentsCamelCase, Argv } from 'yargs';
 import { execSync } from 'child_process';
-import { Command } from './Command';
+import { Command } from '../Command';
 
 const eslintrc = `
 {

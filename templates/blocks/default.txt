@@ -1,0 +1,54 @@
+import { __ } from "@wordpress/i18n";
+import { PanelBody } from "@wordpress/components";
+import {
+  InspectorControls,
+  RichText,
+  useBlockProps,
+} from "@wordpress/block-editor";
+
+/* Block name */
+export const name = "by40q/section-header";
+
+/* Block title */
+export const title = __("Section Header", "40q");
+
+/* Block category */
+export const category = "text";
+
+/* Block attributes */
+export const attributes = {
+  title: {
+    type: "string",
+    default: "40Q",
+  },
+};
+
+/* Block edit */
+export const edit = ({ attributes, setAttributes }) => {
+  const { title } = attributes;
+
+  const blockProps = useBlockProps();
+
+  return (
+    <>
+      <InspectorControls>
+        <PanelBody title={__("Section Header Settings")} initialOpen></PanelBody>
+      </InspectorControls>
+
+      <div {...blockProps}>
+        <RichText
+          tagName="h2"
+          placeholder={__("40Q")}
+          value={title}
+          onChange={(title) => setAttributes({ title })}
+        />
+      </div>
+    </>
+  );
+};
+
+/* Block save */
+export const save = () => <></>;
+
+/* Block styles */
+export const styles = [];
