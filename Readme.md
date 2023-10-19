@@ -20,3 +20,16 @@ Setup is intended to scaffold tools configurations.
 
 Supported Tools:
 * eslint
+
+### Codegen
+Codegen generates code for you.
+
+```
+40q codegen [type] [template]
+```
+
+Supported Types:
+* block: generates code for Gutenberg blocks
+
+Supported Templates:
+* [empty]: creates an example boilerplate for a Gutenberg block
