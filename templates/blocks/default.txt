@@ -7,10 +7,10 @@ import {
 } from "@wordpress/block-editor";
 
 /* Block name */
-export const name = "by40q/section-header";
+export const name = "by40q/{{name}}";
 
 /* Block title */
-export const title = __("Section Header", "40q");
+export const title = __("{{title}}", "40q");
 
 /* Block category */
 export const category = "text";
@@ -32,7 +32,7 @@ export const edit = ({ attributes, setAttributes }) => {
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__("Section Header Settings")} initialOpen></PanelBody>
+        <PanelBody title={__("{{title}} Settings")} initialOpen></PanelBody>
       </InspectorControls>
 
       <div {...blockProps}>
