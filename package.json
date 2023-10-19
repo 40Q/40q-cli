@@ -14,7 +14,7 @@
     },
     "scripts": {
         "build": "tsc",
-        "publish": "yarn build && npm publish --access public"
+        "deploy": "yarn build && yarn publish --access public"
     },
     "author": "40q <info@40q.agency> (https://40q.agency/)",
     "license": "ISC",
