@@ -31,5 +31,5 @@ Codegen generates code for you.
 Supported Types:
 * block: generates code for Gutenberg blocks
 
-Supported Templates:
-* [empty]: creates an example boilerplate for a Gutenberg block
+Templates are optional, if empty, it creates an example boilerplate for a Gutenberg block.
+For supported templates, run: `40q codegen block --help`
