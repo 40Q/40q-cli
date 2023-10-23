@@ -1,6 +1,6 @@
 import { ArgumentsCamelCase, Argv } from 'yargs';
 import { Command } from '../Command';
-import inquirer, { QuestionCollection } from 'inquirer';
+import inquirer from 'inquirer';
 import { GenerateBlock } from './Generators/GenerateBlock';
 import { Templates, Types, templateChoices, typeChoices } from './Codegen.types';
 
@@ -26,27 +26,21 @@ export class CodegenCommand implements Command {
         const template = (argv.template ?? 'default') as Templates;
 
         if (type === 'block') {
-            const answers = await CodegenCommand.prompt(
+            const answers = await inquirer.prompt(
                 [
                     {
                         type: 'input',
                         name: 'name',
                         message: 'Please enter a name for the block:',
-                        default: 'section-header',
+                        default: template || 'section-header',
                     },
                 ],
-                template === 'default'
             );
 
             const name = (answers?.name as string) || null;
 
-            return GenerateBlock.run(template, name);
+            const blockGenerator = new GenerateBlock(template, name);
+            return blockGenerator.run();
         }
-    }
-
-    static async prompt(prompts: QuestionCollection, condition: boolean) {
-        if (!condition) return null;
-
-        return await inquirer.prompt(prompts);
     }
 }

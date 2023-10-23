@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Blocks;
+
+class {{camelCaseName}} extends BlockHandler
+{
+    public function __invoke($block_content, $block)
+    {
+        return view('blocks.{{name}}', [
+            'title' => $block['attrs']['title'] ?? null,
+        ]);
+    }
+}
