@@ -42,7 +42,7 @@ export class GenerateBlock {
                 process.cwd(),
                 `resources/views/blocks/${this.name}.blade.php`
             ),
-            ''
+            this.getTemplate('blade')
         );
 
         fs.writeFileSync(
@@ -71,11 +71,15 @@ export class GenerateBlock {
     }
 
     private getTemplate(name: string) {
-        const cliRoot = findCliRoot(__dirname);
-        const templateFolder = `templates/blocks/${this.template}`;
-        return fs.readFileSync(
-            path.join(cliRoot, `${templateFolder}/${name}.txt`),
-            'utf8'
-        );
+        try {
+            const cliRoot = findCliRoot(__dirname);
+            const templateFolder = `templates/blocks/${this.template}`;
+            return fs.readFileSync(
+                path.join(cliRoot, `${templateFolder}/${name}.txt`),
+                'utf8'
+            );
+        } catch (e) {
+            return '';
+        }
     }
 }
