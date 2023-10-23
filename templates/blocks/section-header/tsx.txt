@@ -1,0 +1,120 @@
+import { __ } from "@wordpress/i18n";
+import { PanelBody, ToggleControl } from "@wordpress/components";
+import {
+  InspectorControls,
+  RichText,
+  useBlockProps,
+  useInnerBlocksProps,
+} from "@wordpress/block-editor";
+
+/* Block name */
+export const name = "by40q/{{name}}";
+
+/* Block title */
+export const title = __("{{title}}", "40q");
+
+/* Block category */
+export const category = "text";
+
+/* Block attributes */
+export const attributes = {
+  showEyebrow: {
+    type: "boolean",
+    default: true,
+  },
+  eyebrow: {
+    type: "string",
+    default: "Introducing",
+  },
+  title: {
+    type: "string",
+    default: "40Q",
+  },
+  showDescription: {
+    type: "boolean",
+    default: true,
+  },
+  description: {
+    type: "string",
+    default:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id tincidunt ultrices, nunc nisl ultrices nunc, vitae aliquam nisl nunc eu nisl. Sed euismod, diam id tincidunt ultrices, nunc nisl ultrices nunc, vitae aliquam nisl nunc eu nisl.",
+  },
+  showCta: {
+    type: "boolean",
+    default: false,
+  },
+};
+
+/* Block edit */
+export const edit = ({ attributes, setAttributes }) => {
+  const { showEyeBrow, eyebrow, title, showDescription, description, showCta } =
+    attributes;
+
+  const blockProps = useBlockProps();
+
+  const innerBlocksProps = useInnerBlocksProps(blockProps, {
+    template: [["core/button"]],
+    allowedBlocks: [],
+    templateLock: "all",
+  });
+
+  return (
+    <>
+      <InspectorControls>
+        <PanelBody title={__("Section Header Settings")} initialOpen>
+          <ToggleControl
+            label="Eyebrow"
+            checked={!!showEyeBrow}
+            onChange={(showEyeBrow) => setAttributes({ showEyeBrow })}
+          />
+          <ToggleControl
+            label="Description"
+            checked={!!showDescription}
+            onChange={(showDescription) => setAttributes({ showDescription })}
+          />
+
+          <ToggleControl
+            label="Cta"
+            checked={!!showCta}
+            onChange={(showCta) => setAttributes({ showCta })}
+          />
+        </PanelBody>
+      </InspectorControls>
+
+      <div {...blockProps}>
+        {!!showEyeBrow && (
+          <RichText
+            className=""
+            tagName="p"
+            placeholder={__("Eyebrow")}
+            value={eyebrow}
+            onChange={(eyebrow) => setAttributes({ eyebrow })}
+          />
+        )}
+        <RichText
+          className=""
+          tagName="h2"
+          placeholder={__("40Q")}
+          value={title}
+          onChange={(title) => setAttributes({ title })}
+        />
+        {!!showDescription && (
+          <RichText
+            className=""
+            tagName="p"
+            placeholder={__("Lorem ipsum dolor sit amet.")}
+            value={description}
+            onChange={(description) => setAttributes({ description })}
+          />
+        )}
+        {!!showCta && <div {...innerBlocksProps} />}
+      </div>
+    </>
+  );
+};
+
+/* Block save */
+export const save = <></>;
+
+/* Block styles */
+export const styles = [];
