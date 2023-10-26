@@ -10,9 +10,6 @@
         "inquirer": "^8.0.0",
         "yargs": "^17.7.2"
     },
-    "peerDependencies": {
-        "eslint": "^8.51.0"
-    },
     "scripts": {
         "build": "tsc",
         "deploy": "yarn build && yarn publish --access public"
