@@ -1,6 +1,6 @@
 {
     "name": "@40q/40q-cli",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "40q CLI tool",
     "main": "index.js",
     "bin": {
@@ -29,5 +29,5 @@
     },
     "files": [
         "dist/"
-      ]
+    ]
 }
