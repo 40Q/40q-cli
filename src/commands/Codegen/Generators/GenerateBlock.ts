@@ -30,7 +30,7 @@ export class GenerateBlock {
         fs.writeFileSync(
             path.join(
                 process.cwd(),
-                `resources/scripts/editor/blocks/${this.name}/${this.name}.tsx`
+                `resources/scripts/editor/blocks/${this.name}/${this.name}.block.tsx`
             ),
             this.getTemplate('tsx')
                 .replace(/{{name}}/g, this.name ?? '')
