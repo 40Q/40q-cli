@@ -49,7 +49,7 @@ export class SetupCommand implements Command {
 
     static setupEslint() {
         console.log('Installing dependencies...');
-        execSync('yarn add --dev eslint @40q/eslint-config husky lint-staged');
+        execSync('yarn add --dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin @40q/eslint-config husky lint-staged');
 
         console.log('Creating .eslintrc.json...');
         execSync(`echo '${eslintrc}' > .eslintrc.json`);
