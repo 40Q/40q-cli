@@ -1,6 +1,6 @@
 {
     "name": "@40q/40q-cli",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "description": "40q CLI tool",
     "main": "index.js",
     "bin": {
@@ -12,7 +12,7 @@
     },
     "scripts": {
         "build": "tsc",
-        "deploy": "yarn build && yarn publish --access public"
+        "deploy": "yarn build && yarn publish --access public && git push"
     },
     "author": "40q <info@40q.agency> (https://40q.agency/)",
     "license": "ISC",
