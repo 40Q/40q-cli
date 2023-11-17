@@ -1,6 +1,10 @@
 import { __ } from "@wordpress/i18n";
 import { PanelBody } from "@wordpress/components";
 import {
+  GetBlockAttributeValues,
+  GetSetAttributesFunction,
+} from "scripts/editor/utils/type-mapping";
+import {
   InspectorControls,
   RichText,
   useBlockProps,
@@ -21,10 +25,20 @@ export const attributes = {
     type: "string",
     default: "40Q",
   },
-};
+} as const;
+
+/* Block types */
+type BlockAttributeValues = GetBlockAttributeValues<typeof attributes>;
+type SetAttributesFunction = GetSetAttributesFunction<typeof attributes>;
 
 /* Block edit */
-export const edit = ({ attributes, setAttributes }) => {
+export const edit = ({
+  attributes,
+  setAttributes,
+}: {
+  attributes: BlockAttributeValues;
+  setAttributes: SetAttributesFunction;
+}) => {
   const { title } = attributes;
 
   const blockProps = useBlockProps();
