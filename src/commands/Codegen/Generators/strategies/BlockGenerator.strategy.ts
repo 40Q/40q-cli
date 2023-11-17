@@ -1,18 +1,23 @@
 import * as fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
-import { Templates } from '../Codegen.types';
-import { findCliRoot } from '../../../lib/cliRoot';
+import { findCliRoot } from '../../../../lib/cliRoot';
 
-export class GenerateBlock {
-    private template: Templates = 'default';
+export interface BlockGeneratorOptions {
+  name: string;
+  template: string;
+}
+
+export class BlockGenerator {
+    private template: string = '';
     private name: string = '';
     private title: string = '';
     private camelCaseName: string = '';
 
-    constructor(template: Templates, name: string | null) {
-        this.template = template;
-        this.name = name ?? '';
+    constructor(options: BlockGeneratorOptions) {
+        console.log(options)
+        this.template = options.template === '' ? 'default' : options.template;
+        this.name = options.name || 'default';
         this.camelCaseName = this.toCamelCase(this.name);
         this.title = this.parseName(this.name);
     }

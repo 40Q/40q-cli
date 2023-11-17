@@ -1,12 +1,21 @@
 {
     "compilerOptions": {
-        "target": "es2016",
-        "module": "CommonJS",
+        "module": "es2020", // or "es2022", "esnext", "system", "node16", "nodenext"
         "moduleResolution": "node",
+        "target": "es2020", // or a later target, if you prefer
+        // "target": "es2016",
+        // "module": "CommonJS",
+        // "moduleResolution": "node",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "skipLibCheck": true,
-        "outDir": "./dist"
-    }
+        "outDir": "./dist",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ],
+        },
+    },
 }

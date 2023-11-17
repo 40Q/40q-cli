@@ -1,6 +1,6 @@
 export const config = {
-  typeChoices: ['block'] as const,
+  typeChoices: ['block', 'blade-component'] as const,
   templateChoices: {
-    block: ['section-header'] as const
+    block: ['', 'section-header'] as const
   },
 }

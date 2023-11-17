@@ -1,0 +1,1 @@
+export { BlockGenerator } from './BlockGenerator.strategy'

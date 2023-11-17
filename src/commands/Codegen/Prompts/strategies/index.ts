@@ -1,0 +1,1 @@
+export { BlockPromptStrategy} from './BlockPrompt.strategy'

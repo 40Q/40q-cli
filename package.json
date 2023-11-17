@@ -11,7 +11,7 @@
         "yargs": "^17.7.2"
     },
     "scripts": {
-        "build": "tsc",
+        "build": "webpack --mode production",
         "deploy": "yarn build && yarn publish --access public && git push"
     },
     "author": "40q <info@40q.agency> (https://40q.agency/)",
@@ -30,8 +30,11 @@
         "eslint": "^8.52.0",
         "husky": "^8.0.3",
         "lint-staged": "^15.0.2",
+        "ts-loader": "^9.5.0",
         "ts-node": "^10.9.1",
-        "typescript": "^5.2.2"
+        "typescript": "^5.2.2",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.4"
     },
     "files": [
         "dist/",
