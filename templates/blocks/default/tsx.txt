@@ -20,7 +20,7 @@ export const title = __("{{title}}", "40q");
 export const category = "40q";
 
 /* Block icon */
-export const icon = "paragraph";
+export const icon = "editor-paragraph";
 
 /* Block attributes */
 export const attributes = {
