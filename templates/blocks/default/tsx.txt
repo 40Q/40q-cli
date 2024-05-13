@@ -1,6 +1,10 @@
 import { __ } from "@wordpress/i18n";
 import { PanelBody } from "@wordpress/components";
 import {
+  GetBlockAttributeValues,
+  GetSetAttributesFunction,
+} from "scripts/editor/utils/type-mapping";
+import {
   InspectorControls,
   RichText,
   useBlockProps,
@@ -17,7 +21,10 @@ export const name = "by40q/{{name}}";
 export const title = __("{{title}}", "40q");
 
 /* Block category */
-export const category = "text";
+export const category = "40q";
+
+/* Block icon */
+export const icon = "editor-paragraph";
 
 /* Block attributes */
 export const attributes = {
@@ -30,7 +37,6 @@ export const attributes = {
 /* Block types */
 type BlockAttributeValues = GetBlockAttributeValues<typeof attributes>;
 type SetAttributesFunction = GetSetAttributesFunction<typeof attributes>;
-
 
 /* Block edit */
 export const edit = ({
