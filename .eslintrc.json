@@ -1,0 +1,5 @@
+{
+    "extends": [
+        "@40q/eslint-config"
+    ]
+}

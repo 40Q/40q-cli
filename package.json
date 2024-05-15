@@ -1,6 +1,6 @@
 {
     "name": "@40q/40q-cli",
-    "version": "1.0.11",
+    "version": "1.0.15",
     "description": "40q CLI tool",
     "main": "index.js",
     "bin": {
@@ -21,9 +21,15 @@
         "url": "https://github.com/40Q/40q-cli.git"
     },
     "devDependencies": {
+        "@40q/eslint-config": "^1.0.2",
         "@types/inquirer": "^8.0.0",
         "@types/node": "^20.8.7",
         "@types/yargs": "^17.0.29",
+        "@typescript-eslint/eslint-plugin": "^6.9.1",
+        "@typescript-eslint/parser": "^6.9.1",
+        "eslint": "^8.52.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^15.0.2",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2"
     },
