@@ -4,7 +4,7 @@ namespace App\Blocks;
 
 use BlockHandler\Contracts\BlockHandler;
 
-class {{camelCaseName}} implements BlockHandler
+class {{pascalCaseName}} implements BlockHandler
 {
     public function __invoke($block_content, $block)
     {

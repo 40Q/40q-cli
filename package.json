@@ -7,7 +7,9 @@
         "40q": "./dist/index.js"
     },
     "dependencies": {
+        "axios": "^1.6.8",
         "inquirer": "^8.0.0",
+        "uuidv4": "^6.2.13",
         "yargs": "^17.7.2"
     },
     "scripts": {
