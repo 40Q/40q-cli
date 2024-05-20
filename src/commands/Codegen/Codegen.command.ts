@@ -4,6 +4,7 @@ import inquirer from 'inquirer';
 import { v4 as uuidv4 } from 'uuid';
 import { ArgumentsCamelCase, Argv } from 'yargs';
 import { getBlockPath, tempPaths } from '../../utils/paths';
+import { TempDirs } from '../../utils/types';
 import { Command } from '../Command';
 import { Templates, Types, templateChoices, typeChoices } from './Codegen.types';
 import { downloadAndSaveItems, fetchRepoBlocks, fetchRepoComponents } from './Generators/FetchComponents';
@@ -46,7 +47,7 @@ export class CodegenCommand implements Command {
 }
 
 async function handleBlock(template: Templates) {
-    const tempDirs = tempPaths(`temp-block-library-${uuidv4()}`);
+    const tempDirs: TempDirs = tempPaths(`temp-block-library-${uuidv4()}`);
 
     if (fs.existsSync(tempDirs.tempDir)) execSync(`rm -rf ${tempDirs.tempDir}`);
     execSync(`git clone ${REPO_URL} ${tempDirs.tempDir}`);
@@ -94,7 +95,7 @@ async function handleGet() {
     ]);
 
     const type = answers.type as 'block' | 'component';
-    const tempDirs = tempPaths(`temp-block-library-${uuidv4()}`);
+    const tempDirs: TempDirs = tempPaths(`temp-block-library-${uuidv4()}`);
 
     if (fs.existsSync(tempDirs.tempDir)) execSync(`rm -rf ${tempDirs.tempDir}`);
     execSync(`git clone ${REPO_URL} ${tempDirs.tempDir}`);

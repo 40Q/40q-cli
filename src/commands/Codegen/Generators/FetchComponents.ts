@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { getPaths, copyDirectory, utilsDir } from '../../../utils/paths';
 import { writeFile } from '../../../utils/utils';
+import { TempDirs } from '../../../utils/types';
 
 export function fetchRepoComponents(tempComponentsDir: string): { name: string }[] {
     const componentFiles = fs.readdirSync(tempComponentsDir).map(file => ({
@@ -21,7 +22,7 @@ export function fetchRepoBlocks(tempBlocksDir: string): { name: string }[] {
 export function downloadAndSaveItems(
     items: { name: string }[],
     type: 'block' | 'component',
-    tempDirs: any
+    tempDirs: TempDirs
 ): void {
     items.forEach(item => {
         const paths = getPaths(item.name, type, tempDirs);

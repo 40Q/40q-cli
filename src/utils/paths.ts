@@ -1,13 +1,14 @@
 import path from 'path';
 import * as fs from 'fs';
 import { toPascalCase, writeFile } from './utils';
+import { TempDirs } from './types';
 
 const tempDir = (dirName: string) => path.join(process.cwd(), dirName);
 const componentsDir = 'resources/scripts/editor/components';
 const blocksDir = 'resources/scripts/editor/blocks';
 const utilsDir = path.join(process.cwd(), 'resources/scripts/editor/utils');
 
-const tempPaths = (dirName: string) => ({
+const tempPaths = (dirName: string): TempDirs => ({
     tempDir: tempDir(dirName),
     tempComponentsDir: path.join(tempDir(dirName), componentsDir),
     tempBlocksDir: path.join(tempDir(dirName), blocksDir),
@@ -24,7 +25,7 @@ const getBlockPath = (blockName: string, tempDir: string) =>
 const getComponentPath = (componentName: string, tempDir: string) =>
     path.join(tempDir, componentName, `${componentName}.tsx`);
 
-const getPaths = (name: string, type: 'block' | 'component', tempDirs: any) => {
+const getPaths = (name: string, type: 'block' | 'component', tempDirs: TempDirs) => {
     const namePascal = toPascalCase(name);
     const isBlock = type === 'block';
     const dirType = isBlock ? 'blocks' : 'components';
