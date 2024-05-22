@@ -9,10 +9,8 @@ import {
   RichText,
   useBlockProps,
 } from "@wordpress/block-editor";
-import {
-  GetBlockAttributeValues,
-  GetSetAttributesFunction,
-} from "scripts/editor/utils/type-mapping";
+import { BlockStyle } from "@wordpress/blocks";
+{{imports}}
 
 /* Block name */
 export const name = "by40q/{{name}}";
@@ -24,7 +22,7 @@ export const title = __("{{title}}", "40q");
 export const category = "40q";
 
 /* Block icon */
-export const icon = "editor-paragraph";
+export const icon = "admin-tools";
 
 /* Block attributes */
 export const attributes = {
@@ -32,6 +30,7 @@ export const attributes = {
     type: "string",
     default: "40Q",
   },
+  {{attributes}}
 } as const;
 
 /* Block types */
@@ -46,14 +45,14 @@ export const edit = ({
   attributes: BlockAttributeValues;
   setAttributes: SetAttributesFunction;
 }) => {
-  const { title } = attributes;
+  const { {{destructure_attributes}} } = attributes;
 
   const blockProps = useBlockProps();
 
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__("{{title}} Settings")} initialOpen></PanelBody>
+        <PanelBody title={__("{{title}} Settings")} initialOpen>{{panelBody}}</PanelBody>
       </InspectorControls>
 
       <div {...blockProps}>
@@ -63,6 +62,7 @@ export const edit = ({
           value={title}
           onChange={(title) => setAttributes({ title })}
         />
+        {{editComponents}}
       </div>
     </>
   );
@@ -72,4 +72,4 @@ export const edit = ({
 export const save = () => <></>;
 
 /* Block styles */
-export const styles = [];
+export const styles: BlockStyle[] = [];
