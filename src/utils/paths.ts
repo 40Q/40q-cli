@@ -45,7 +45,7 @@ const getPaths = (name: string, type: 'block' | 'component', tempDirs: TempDirs)
     };
 };
 
-function copyDirectory(sourceDir: string, destDir: string, excludeFiles: string[] = []) {
+function copyDirectory(sourceDir: string, destDir: string, excludeFiles: string[] = [], overwrite = false) {
     if (!fs.existsSync(destDir)) {
         fs.mkdirSync(destDir, { recursive: true });
     }
@@ -59,9 +59,9 @@ function copyDirectory(sourceDir: string, destDir: string, excludeFiles: string[
         }
 
         if (fs.lstatSync(sourcePath).isDirectory()) {
-            copyDirectory(sourcePath, destPath, excludeFiles);
+            copyDirectory(sourcePath, destPath, excludeFiles, overwrite);
         } else {
-            writeFile(destPath, fs.readFileSync(sourcePath, 'utf-8'));
+            writeFile(destPath, fs.readFileSync(sourcePath, 'utf-8'), overwrite);
         }
     });
 }

@@ -22,7 +22,8 @@ export function fetchRepoBlocks(tempBlocksDir: string): { name: string }[] {
 export function downloadAndSaveItems(
     items: { name: string }[],
     type: 'block' | 'component',
-    tempDirs: TempDirs
+    tempDirs: TempDirs,
+    overwrite = false,
 ): void {
     items.forEach(item => {
         const paths = getPaths(item.name, type, tempDirs);
@@ -31,10 +32,10 @@ export function downloadAndSaveItems(
         if (!fs.existsSync(paths.destPhpDir)) fs.mkdirSync(paths.destPhpDir, { recursive: true });
         if (!fs.existsSync(paths.destBladeDir)) fs.mkdirSync(paths.destBladeDir, { recursive: true });
 
-        writeFile(paths.destTsxPath, fs.readFileSync(paths.sourceTsxPath, 'utf-8'));
-        writeFile(paths.destPhpPath, fs.readFileSync(paths.sourcePhpPath, 'utf-8'));
-        writeFile(paths.destBladePath, fs.readFileSync(paths.sourceBladePath, 'utf-8'));
+        writeFile(paths.destTsxPath, fs.readFileSync(paths.sourceTsxPath, 'utf-8'), overwrite);
+        writeFile(paths.destPhpPath, fs.readFileSync(paths.sourcePhpPath, 'utf-8'), overwrite);
+        writeFile(paths.destBladePath, fs.readFileSync(paths.sourceBladePath, 'utf-8'), overwrite);
     });
 
-    copyDirectory(tempDirs.tempUtilsDir, utilsDir, ['mocks.ts']);
+    copyDirectory(tempDirs.tempUtilsDir, utilsDir, ['mocks.ts'], overwrite);
 }
