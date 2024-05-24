@@ -29,7 +29,8 @@ Codegen generates code for you.
 ```
 
 Supported Types:
-* block: generates code for Gutenberg blocks
+* block: generates code for Gutenberg blocks and allows selecting inner components from block library repo.
+* get: fetches selected block/s, component/s, and utils from block library repo.
 
 Templates are optional, if empty, it creates an example boilerplate for a Gutenberg block.
 

@@ -1,13 +1,16 @@
-import exp from 'constants';
 import * as fs from 'fs';
 
-export function writeFile(filePath: string, content: string) {
+export function writeFile(filePath: string, content: string, overwrite = false) {
     const yellow = "\x1b[33m";
     const green = "\x1b[32m";
+    const cyan = "\x1b[36m";
     const reset = "\x1b[0m";
     
-    if (fs.existsSync(filePath)) {
+    if (fs.existsSync(filePath) && !overwrite) {
         console.log(`${yellow}File ${filePath} already exists. Skipping file creation.${reset}`);
+    } else if(fs.existsSync(filePath) && overwrite) {
+        fs.writeFileSync(filePath, content);
+        console.log(`${cyan}File ${filePath} has been overwritten.${reset}`);
     } else {
         fs.writeFileSync(filePath, content);
         console.log(`${green}File ${filePath} has been created.${reset}`);
