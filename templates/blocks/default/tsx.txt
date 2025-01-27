@@ -19,10 +19,10 @@ export const name = "by40q/{{name}}";
 export const title = __("{{title}}", "40q");
 
 /* Block category */
-export const category = "40q";
+export const category = "{{category}}";
 
 /* Block icon */
-export const icon = "admin-tools";
+export const icon = "{{icon}}";
 
 /* Block attributes */
 export const attributes = {
