@@ -67,6 +67,18 @@ async function handleBlock(template: Templates) {
                 default: template || 'section-header',
             },
             {
+                type: 'input',
+                name: 'category',
+                message: 'Enter the block category:',
+                default: '40q',
+            },
+            {
+                type: 'input',
+                name: 'icon',
+                message: 'Enter the icon name (dashicons):',
+                default: 'block-default',
+            },
+            {
                 type: 'checkbox',
                 name: 'components',
                 message: 'Select inner components to include:',
@@ -74,10 +86,10 @@ async function handleBlock(template: Templates) {
             }
         ]);
 
-        const { name, components } = answers;
+        const { name, category, icon, components } = answers;
         downloadAndSaveItems(components, 'component', tempDirs);
-        const componentNames = components.map((component: {name: string}) => component.name);
-        const blockGenerator = new GenerateBlock(template, name, componentNames);
+        const componentNames = components.map((component: {name: string, category: string, icon: string}) => component.name);
+        const blockGenerator = new GenerateBlock(template, name, category, icon, componentNames);
         return blockGenerator.run();
     } finally {
         execSync(`rm -rf ${tempDirs.tempDir}`);
