@@ -59,7 +59,7 @@ export class GenerateBlock {
             if (editMatch) {
                 importStatements.push(`Edit as ${componentNamePascal}Edit`);
                 if (editMatch[1].includes('setAttributes')) {
-                    editComponent = `<${componentNamePascal}Edit attributes={${componentNameCamel} as ${componentNamePascal}Type} setAttributes={setAttributes} />\n`;
+                    editComponent = `<${componentNamePascal}Edit attributes={${componentNameCamel} as ${componentNamePascal}Type} setAttributes={(${componentNameCamel}) => setAttributes({${componentNameCamel}})} />\n`;
                     editProps = '{ attributes, setAttributes }';
                 } else {
                     editComponent = `<${componentNamePascal}Edit attributes={${componentNameCamel} as ${componentNamePascal}Type} />\n`;
@@ -69,7 +69,7 @@ export class GenerateBlock {
             if (sidebarMatch) {
                 importStatements.push(`Sidebar as ${componentNamePascal}Sidebar`);
                 if (sidebarMatch[1].includes('setAttributes')) {
-                    sidebarComponent = `<${componentNamePascal}Sidebar attributes={${componentNameCamel} as ${componentNamePascal}Type} setAttributes={setAttributes} />\n`;
+                    sidebarComponent = `<${componentNamePascal}Sidebar attributes={${componentNameCamel} as ${componentNamePascal}Type} setAttributes={(${componentNameCamel}) => setAttributes({${componentNameCamel}})} />\n`;
                 } else {
                     sidebarComponent = `<${componentNamePascal}Sidebar attributes={${componentNameCamel} as ${componentNamePascal}Type} />\n`;
                 }
