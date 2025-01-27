@@ -69,13 +69,13 @@ async function handleBlock(template: Templates) {
             {
                 type: 'input',
                 name: 'category',
-                message: 'Please enter the block category:',
+                message: 'Enter the block category:',
                 default: '40q',
             },
             {
                 type: 'input',
                 name: 'icon',
-                message: 'Please enter the icon name (dashicons):',
+                message: 'Enter the icon name (dashicons):',
                 default: 'block-default',
             },
             {
