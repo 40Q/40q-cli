@@ -8,13 +8,17 @@ import { toCamelCase, toPascalCase, writeFile } from '../../../utils/utils';
 export class GenerateBlock {
     private template: Templates = 'default';
     private name: string = '';
+    private icon: string = '';
+    private category: string = '';
     private components: string[] = [];
     private title: string = '';
     private pascalCaseName: string = '';
 
-    constructor(template: Templates, name: string | null, components: string[]) {
+    constructor(template: Templates, name: string | null, category: string | null, icon: string | null, components: string[]) {
         this.template = template;
         this.name = name ?? '';
+        this.category = category ?? '';
+        this.icon = icon ?? '';
         this.pascalCaseName = toPascalCase(this.name);
         this.title = this.parseName(this.name);
         this.components = components;
@@ -59,7 +63,7 @@ export class GenerateBlock {
             if (editMatch) {
                 importStatements.push(`Edit as ${componentNamePascal}Edit`);
                 if (editMatch[1].includes('setAttributes')) {
-                    editComponent = `<${componentNamePascal}Edit attributes={${componentNameCamel} as ${componentNamePascal}Type} setAttributes={setAttributes} />\n`;
+                    editComponent = `<${componentNamePascal}Edit attributes={${componentNameCamel} as ${componentNamePascal}Type} setAttributes={(${componentNameCamel}) => setAttributes({${componentNameCamel}})} />\n`;
                     editProps = '{ attributes, setAttributes }';
                 } else {
                     editComponent = `<${componentNamePascal}Edit attributes={${componentNameCamel} as ${componentNamePascal}Type} />\n`;
@@ -69,7 +73,7 @@ export class GenerateBlock {
             if (sidebarMatch) {
                 importStatements.push(`Sidebar as ${componentNamePascal}Sidebar`);
                 if (sidebarMatch[1].includes('setAttributes')) {
-                    sidebarComponent = `<${componentNamePascal}Sidebar attributes={${componentNameCamel} as ${componentNamePascal}Type} setAttributes={setAttributes} />\n`;
+                    sidebarComponent = `<${componentNamePascal}Sidebar attributes={${componentNameCamel} as ${componentNamePascal}Type} setAttributes={(${componentNameCamel}) => setAttributes({${componentNameCamel}})} />\n`;
                 } else {
                     sidebarComponent = `<${componentNamePascal}Sidebar attributes={${componentNameCamel} as ${componentNamePascal}Type} />\n`;
                 }
@@ -106,6 +110,8 @@ export class GenerateBlock {
             path.join(process.cwd(), `resources/scripts/editor/blocks/${this.name}/${this.name}.block.tsx`),
             this.getTemplate('tsx')
                 .replace(/{{name}}/g, this.name ?? '')
+                .replace(/{{category}}/g, this.category ?? '')
+                .replace(/{{icon}}/g, this.icon ?? '')
                 .replace(/{{title}}/g, this.title)
                 .replace(/{{imports}}/g, imports)
                 .replace(/{{attributes}}/g, attributes)

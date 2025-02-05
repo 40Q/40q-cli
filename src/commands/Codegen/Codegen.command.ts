@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import inquirer from 'inquirer';
 import { v4 as uuidv4 } from 'uuid';
 import { ArgumentsCamelCase, Argv } from 'yargs';
-import { getBlockPath, tempPaths } from '../../utils/paths';
+import { copyDirectory, getBlockPath, tempPaths, utilsDir } from '../../utils/paths';
 import { TempDirs } from '../../utils/types';
 import { Command } from '../Command';
 import { Templates, Types, templateChoices, typeChoices } from './Codegen.types';
@@ -67,6 +67,18 @@ async function handleBlock(template: Templates) {
                 default: template || 'section-header',
             },
             {
+                type: 'input',
+                name: 'category',
+                message: 'Enter the block category:',
+                default: '40q',
+            },
+            {
+                type: 'input',
+                name: 'icon',
+                message: 'Enter the icon name (dashicons):',
+                default: 'block-default',
+            },
+            {
                 type: 'checkbox',
                 name: 'components',
                 message: 'Select inner components to include:',
@@ -74,10 +86,10 @@ async function handleBlock(template: Templates) {
             }
         ]);
 
-        const { name, components } = answers;
+        const { name, category, icon, components } = answers;
         downloadAndSaveItems(components, 'component', tempDirs);
-        const componentNames = components.map((component: {name: string}) => component.name);
-        const blockGenerator = new GenerateBlock(template, name, componentNames);
+        const componentNames = components.map((component: {name: string, category: string, icon: string}) => component.name);
+        const blockGenerator = new GenerateBlock(template, name, category, icon, componentNames);
         return blockGenerator.run();
     } finally {
         execSync(`rm -rf ${tempDirs.tempDir}`);
@@ -90,11 +102,19 @@ async function handleGet() {
             type: 'list',
             name: 'type',
             message: 'What do you want to get?',
-            choices: ['block', 'component']
+            choices: ['block', 'component', 'utils']
+        },
+        {
+            type: 'confirm',
+            name: 'overwrite',
+            message: 'Overwrite existing files?',
+            default: false,
         }
     ]);
 
-    const type = answers.type as 'block' | 'component';
+    const type = answers.type as 'block' | 'component' | 'utils';
+    const overwrite = answers.overwrite;
+
     const tempDirs: TempDirs = tempPaths(`temp-block-library-${uuidv4()}`);
 
     if (fs.existsSync(tempDirs.tempDir)) execSync(`rm -rf ${tempDirs.tempDir}`);
@@ -118,9 +138,9 @@ async function handleGet() {
             ]);
 
             const { blocks } = answers;
-            downloadAndSaveItems(blocks, 'block', tempDirs);
+            downloadAndSaveItems(blocks, 'block', tempDirs, overwrite);
             const innerComponents = getInnerComponents(blocks, tempDirs.tempComponentsDir);
-            downloadAndSaveItems(innerComponents, 'component', tempDirs);
+            downloadAndSaveItems(innerComponents, 'component', tempDirs, overwrite);
         } else if (type === 'component') {
             const repoComponents = fetchRepoComponents(tempDirs.tempComponentsDir);
             const componentChoices = repoComponents.map(component => ({
@@ -138,10 +158,12 @@ async function handleGet() {
             ]);
 
             const { components } = answers;
-            downloadAndSaveItems(components, 'component', tempDirs);
+            downloadAndSaveItems(components, 'component', tempDirs, overwrite);
+        } else if (type === 'utils') {
+            copyDirectory(tempDirs.tempUtilsDir, utilsDir, ['mocks.ts'], overwrite)
         }
 
-        console.log(`Selected ${type}s have been added to your project.`);
+        console.log(`Selected ${type}${type.endsWith('s') ? '' : 's'} have been added to your project.`);
     } finally {
         execSync(`rm -rf ${tempDirs.tempDir}`);
     }
